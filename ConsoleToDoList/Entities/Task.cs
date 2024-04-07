@@ -5,13 +5,14 @@ namespace ConsoleToDoList.Entities
     public class Task
     {
         private DateTime DateTime { get; set; }
+
         public string Name {  get; set; }
 
         public Status Status { get; set; }
 
         public Task(string name)
         {
-            Name = name;
+            this.Name = name;
             Status = Status.NotFulfilled;
             DateTime = DateTime.Now;
         }
@@ -22,7 +23,7 @@ namespace ConsoleToDoList.Entities
         /// <returns></returns>
         public override string ToString()
         {
-            return $"Задача: {Name}.\nВремя создание: {DateTime}\nСтатус: {DisplayStatuc(Status)}.";
+            return $"Задача: {Name}.\nВремя создание: {DateTime}\nСтатус: {DisplayStatuc(Status)}.\n";
         }
 
         /// <summary>
@@ -47,6 +48,10 @@ namespace ConsoleToDoList.Entities
                     break;
             }
             return taskStatus;
+        }
+        public void ChengStatus()
+        {
+            Status = Status.Сompleted;
         }
     }
 }

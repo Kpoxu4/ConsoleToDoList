@@ -10,5 +10,18 @@ namespace ConsoleToDoList.Entities
         {
             ListTasks = new List<Task>();
         }
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            int count = 1;
+
+            foreach (Task task in ListTasks)
+            {
+                sb.AppendLine(count + "\n" + task.ToString());
+                count++;
+            }
+
+            return sb.ToString();
+        }
     }
 }

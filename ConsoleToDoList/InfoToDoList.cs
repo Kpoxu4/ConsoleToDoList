@@ -1,14 +1,15 @@
 ﻿
 
 using System.Text;
+using System.Threading.Channels;
 
 namespace ConsoleToDoList
 {
     public static class InfoToDoList
     {
-        public static string Info(string info)
+        public static void Info(string info)
         {
-            return info;
+            Console.WriteLine(info);
         }
         public static string MenuInfo()
         {
