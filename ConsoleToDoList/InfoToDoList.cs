@@ -1,9 +1,4 @@
-﻿
-
-using System.Text;
-using System.Threading.Channels;
-
-namespace ConsoleToDoList
+﻿namespace ConsoleToDoList
 {
     public static class InfoToDoList
     {
