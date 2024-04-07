@@ -42,85 +42,17 @@ namespace ConsoleToDoList
 
                     case CHENGE_STATUS:
                         {
-                            int taskNumber = 0;
-                            bool continueSelecting = false;
-                            while (continueSelecting == false)
-                            {
-                                Console.Clear() ;  
-                                Console.WriteLine();
-                                ShowTaskList(listTask);
-                                if (listTask.ListTasks.Count() == 0) break;
-                                
-                                InfoToDoList.Info("Выберите номер задачи для отметки как выполненная");
-                                if (int.TryParse(Console.ReadLine(), out taskNumber) && taskNumber >= 1 && taskNumber <= listTask.ListTasks.Count())
-                                {
-                                    if (listTask.ListTasks[taskNumber - 1].Status == Status.NotFulfilled)
-                                    {
-                                        listTask.ListTasks[taskNumber - 1].ChengStatus();
-                                        continueSelecting = MiniMenu("Статус задачи изменен");
-                                    }
-                                    else
-                                    {
-                                        continueSelecting = MiniMenu("Эта задача уже выполненная");
-                                    }
-                                }
-                                else
-                                {
-                                    continueSelecting = MiniMenu("Такого номера задачи нет");
-                                }
-                            }
+                            ChengeStatus(listTask);
                         }
                         break;
                     case EDIT_TASK:
                         {
-                            int taskNumber = 0;
-                            bool continueSelecting = false;
-                            while (continueSelecting == false)
-                            {
-                                Console.Clear();
-                                Console.WriteLine();
-                                ShowTaskList(listTask);
-                                if (listTask.ListTasks.Count() == 0) break;
-
-                                InfoToDoList.Info("Выберите номер задачи для переименования");
-                                if (int.TryParse(Console.ReadLine(), out taskNumber) && taskNumber >= 1 && taskNumber <= listTask.ListTasks.Count())
-                                {
-                                    InfoToDoList.Info("Введите новое имя");
-                                    string chengeName = Console.ReadLine();
-                                    listTask.ListTasks[taskNumber - 1].Name = chengeName;
-                                    continueSelecting = MiniMenu($"Имя изменено на {chengeName}.");
-                                   
-                                }
-                                else
-                                {
-                                    continueSelecting = MiniMenu("Такого номера задачи нет");
-                                }
-                            }
+                            EditTask(listTask);
                         }
                         break;
                     case DELETE_TASK:
                         {
-                            int taskNumber = 0;
-                            bool continueSelecting = false;
-                            while (continueSelecting == false)
-                            {
-                                Console.Clear();
-                                Console.WriteLine();
-                                ShowTaskList(listTask);
-                                if (listTask.ListTasks.Count() == 0) break;
-
-                                InfoToDoList.Info("Выберите номер задачи для удаления");
-                                if (int.TryParse(Console.ReadLine(), out taskNumber) && taskNumber >= 1 && taskNumber <= listTask.ListTasks.Count())
-                                {
-
-                                    listTask.ListTasks.Remove(listTask.ListTasks[taskNumber - 1]);
-                                    continueSelecting = MiniMenu($"Удалена задача по номеру {taskNumber}.");
-                                }
-                                else
-                                {
-                                    continueSelecting = MiniMenu("Такого номера задачи нет");
-                                }
-                            }
+                            DeleteTask(listTask);
                         }
                         break;
                     case EXIT:
@@ -132,12 +64,12 @@ namespace ConsoleToDoList
                         {
                             Console.WriteLine("Надо выбрать пункт.");
                         }
-                        break;
-                       
+                        break;   
                 }
                 Console.ReadKey();
             }
         }
+
         private static void CreateNewTask(ListTask listTask)
         {
             InfoToDoList.Info("Введите имя задачи");
@@ -169,12 +101,96 @@ namespace ConsoleToDoList
 
             return continueSelecting;
         }
+
         private static void MainMenu()
         {
             InfoToDoList.Info("Вас приветствует список задач.");
             Console.WriteLine();
             Console.WriteLine(InfoToDoList.MenuInfo());
             InfoToDoList.Info("Выберите пункт меню: ");
+        }
+
+        private static void ChengeStatus(ListTask listTask)
+        {
+            int taskNumber = 0;
+            bool continueSelecting = false;
+            while (continueSelecting == false)
+            {
+                Console.Clear();
+                Console.WriteLine();
+                ShowTaskList(listTask);
+                if (listTask.ListTasks.Count() == 0) break;
+
+                InfoToDoList.Info("Выберите номер задачи для отметки как выполненная");
+                if (int.TryParse(Console.ReadLine(), out taskNumber) && taskNumber >= 1 && taskNumber <= listTask.ListTasks.Count())
+                {
+                    if (listTask.ListTasks[taskNumber - 1].Status == Status.NotFulfilled)
+                    {
+                        listTask.ListTasks[taskNumber - 1].ChengStatus();
+                        continueSelecting = MiniMenu("Статус задачи изменен");
+                    }
+                    else
+                    {
+                        continueSelecting = MiniMenu("Эта задача уже выполненная");
+                    }
+                }
+                else
+                {
+                    continueSelecting = MiniMenu("Такого номера задачи нет");
+                }
+            }
+        }
+
+        private static void DeleteTask(ListTask listTask) 
+        {
+            int taskNumber = 0;
+            bool continueSelecting = false;
+            while (continueSelecting == false)
+            {
+                Console.Clear();
+                Console.WriteLine();
+                ShowTaskList(listTask);
+                if (listTask.ListTasks.Count() == 0) break;
+
+                InfoToDoList.Info("Выберите номер задачи для удаления");
+                if (int.TryParse(Console.ReadLine(), out taskNumber) && taskNumber >= 1 && taskNumber <= listTask.ListTasks.Count())
+                {
+
+                    listTask.ListTasks.Remove(listTask.ListTasks[taskNumber - 1]);
+                    continueSelecting = MiniMenu($"Удалена задача по номеру {taskNumber}.");
+                }
+                else
+                {
+                    continueSelecting = MiniMenu("Такого номера задачи нет");
+                }
+            }
+        }
+
+        private static void EditTask(ListTask listTask) 
+        {
+            int taskNumber = 0;
+            bool continueSelecting = false;
+            while (continueSelecting == false)
+            {
+                Console.Clear();
+                Console.WriteLine();
+                ShowTaskList(listTask);
+                if (listTask.ListTasks.Count() == 0) break;
+
+                InfoToDoList.Info("Выберите номер задачи для переименования");
+                if (int.TryParse(Console.ReadLine(), out taskNumber) && taskNumber >= 1 && taskNumber <= listTask.ListTasks.Count())
+                {
+                    InfoToDoList.Info("Введите новое имя");
+                    string chengeName = Console.ReadLine();
+                    listTask.ListTasks[taskNumber - 1].Name = chengeName;
+                    continueSelecting = MiniMenu($"Имя изменено на {chengeName}.");
+
+                }
+                else
+                {
+                    continueSelecting = MiniMenu("Такого номера задачи нет");
+                }
+            }
         }
     }
 }
